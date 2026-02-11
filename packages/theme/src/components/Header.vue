@@ -29,8 +29,8 @@
         </nav>
       </div>
       <div class="header-breadcrumb">
-        <a href="https://birudo.studio" class="breadcrumb-link">home</a>
-        <span class="breadcrumb-sep">/</span>
+        <a href="https://birudo.studio" class="back-link">← back</a>
+        <span class="breadcrumb-sep">·</span>
         <span class="breadcrumb-current">feedback</span>
       </div>
       <navbar />
@@ -96,7 +96,7 @@ const accessDashboard = computed(() => {
   margin-top: 1.5rem
   padding-bottom: 0.5rem
 
-.breadcrumb-link
+.back-link
   color: var(--color-text-tertiary)
   font-size: 11px
   font-weight: 400
