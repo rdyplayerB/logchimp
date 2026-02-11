@@ -1,25 +1,27 @@
 <template>
-  <div class="flex flex-col-reverse lg:flex-row mb-16 lg:space-x-8">
-    <main class="grow-[2] shrink basis-0">
-      <div v-if="Object.keys(groupedPosts).length > 0" class="posts-grouped">
+  <div class="home-layout">
+    <main class="home-main">
+      <div v-if="Object.keys(groupedPosts).length > 0" class="app-columns">
         <div
           v-for="(group, boardId) in groupedPosts"
           :key="boardId"
-          class="app-section"
+          class="app-column"
         >
           <router-link
             v-if="group.board"
             :to="`/apps/${group.board.url}`"
-            class="app-section-header"
+            class="app-column-header"
           >
-            <div
-              class="app-section-dot"
-              :style="{ backgroundColor: `#${group.board.color}` }"
-            />
-            <span class="app-section-name">{{ group.board.name }}</span>
-            <span class="app-section-count">{{ group.posts.length }}</span>
+            <div class="app-column-header-left">
+              <div
+                class="app-column-dot"
+                :style="{ backgroundColor: `#${group.board.color}` }"
+              />
+              <span class="app-column-name">{{ group.board.name }}</span>
+            </div>
+            <span class="app-column-count">{{ group.posts.length }}</span>
           </router-link>
-          <div class="app-section-posts">
+          <div class="app-column-posts">
             <post-item
               v-for="post in group.posts"
               :key="post.postId"
@@ -32,7 +34,7 @@
 
       <infinite-scroll @infinite="getBoardPosts" :state="state" />
     </main>
-    <aside class="flex-1 mb-6 lg:mb-0">
+    <aside class="home-aside">
       <site-setup-card v-if="showSiteSetupCard" />
       <login-card v-if="!userStore.getUserId && !showSiteSetupCard" />
     </aside>
@@ -136,47 +138,124 @@ useHead({
 </script>
 
 <style lang='sass'>
-.posts-grouped
+.home-layout
   display: flex
   flex-direction: column
-  gap: 2.5rem
+  gap: 2rem
+  margin-bottom: 4rem
 
-.app-section
+  @media (min-width: 1024px)
+    flex-direction: row
+    gap: 2rem
+
+.home-main
+  flex: 1
+  min-width: 0
+
+.home-aside
+  flex-shrink: 0
+
+  @media (min-width: 1024px)
+    width: 280px
+
+.app-columns
   display: flex
-  flex-direction: column
-
-.app-section-header
-  display: inline-flex
-  align-items: center
-  gap: 0.5rem
+  gap: 1.5rem
+  overflow-x: auto
   padding-bottom: 1rem
-  margin-bottom: 1rem
+
+  // Hide scrollbar but keep functionality
+  scrollbar-width: thin
+  scrollbar-color: var(--border-color) transparent
+
+  &::-webkit-scrollbar
+    height: 4px
+
+  &::-webkit-scrollbar-track
+    background: transparent
+
+  &::-webkit-scrollbar-thumb
+    background: var(--border-color)
+    border-radius: 2px
+
+.app-column
+  flex: 0 0 320px
+  min-width: 280px
+  max-width: 360px
+  display: flex
+  flex-direction: column
+  background: rgba(255, 255, 255, 0.02)
+  border: 1px solid var(--border-color)
+  border-radius: 8px
+  overflow: hidden
+
+.app-column-header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 1rem 1.25rem
+  background: rgba(255, 255, 255, 0.02)
   border-bottom: 1px solid var(--border-color)
   text-decoration: none
-  transition: opacity 0.2s ease
+  transition: background 0.2s ease
 
   &:hover
-    opacity: 0.7
+    background: rgba(255, 255, 255, 0.04)
 
-.app-section-dot
+.app-column-header-left
+  display: flex
+  align-items: center
+  gap: 0.5rem
+
+.app-column-dot
   width: 8px
   height: 8px
   border-radius: 50%
   flex-shrink: 0
 
-.app-section-name
+.app-column-name
   color: var(--color-text-primary)
-  font-size: 14px
+  font-size: 13px
   font-weight: 400
   letter-spacing: 0.02em
 
-.app-section-count
+.app-column-count
   color: var(--color-text-tertiary)
   font-size: 11px
   letter-spacing: 0.05em
-  margin-left: 0.25rem
+  background: rgba(255, 255, 255, 0.05)
+  padding: 0.125rem 0.5rem
+  border-radius: 10px
 
-.app-section-posts
+.app-column-posts
   display: flex
   flex-direction: column
+  padding: 1rem
+  gap: 0.5rem
+  max-height: 500px
+  overflow-y: auto
+
+  // Subtle scrollbar
+  scrollbar-width: thin
+  scrollbar-color: var(--border-color) transparent
+
+  &::-webkit-scrollbar
+    width: 4px
+
+  &::-webkit-scrollbar-track
+    background: transparent
+
+  &::-webkit-scrollbar-thumb
+    background: var(--border-color)
+    border-radius: 2px
+
+  .post
+    margin-bottom: 0.75rem
+    padding-bottom: 0.75rem
+    border-bottom: 1px solid var(--border-color-subtle)
+
+    &:last-child
+      margin-bottom: 0
+      padding-bottom: 0
+      border-bottom: none
 </style>
