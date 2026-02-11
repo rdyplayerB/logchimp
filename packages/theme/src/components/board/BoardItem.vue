@@ -1,7 +1,7 @@
 <template>
   <router-link
     data-test="board-item"
-    :to="`/boards/${url}`"
+    :to="`/apps/${url}`"
     class="board-item"
   >
     <div
@@ -48,19 +48,20 @@ defineProps({
 
 <style lang='sass'>
 .board-item
+	flex: 1 1 0
+	min-width: 250px
 	display: flex
 	align-items: center
 	padding: 1rem 1.25rem
-	background-color: var(--bg-secondary)
+	background: rgba(255, 255, 255, 0.02)
 	border: 1px solid var(--border-color)
-	border-radius: var(--border-radius-default)
+	border-radius: 8px
 	user-select: none
 	transition: all 0.2s ease
 	text-decoration: none
 
 	&:hover
-		border-color: var(--border-color-hover)
-		opacity: 0.8
+		background: rgba(255, 255, 255, 0.04)
 
 .board-item-name-and-posts
 	margin-left: 0.75rem
@@ -73,12 +74,13 @@ defineProps({
 	color: var(--color-text-primary)
 	font-size: 13px
 	font-weight: 400
-	letter-spacing: 0.05em
+	letter-spacing: 0.02em
 
 .board-item-postcount
 	color: var(--color-text-tertiary)
-	font-size: 12px
-	font-weight: 400
+	font-size: 11px
 	letter-spacing: 0.05em
-	margin-left: 1rem
+	background: rgba(255, 255, 255, 0.05)
+	padding: 0.125rem 0.5rem
+	border-radius: 10px
 </style>

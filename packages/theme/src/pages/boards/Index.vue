@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="boards.length > 0" class="boards-lists">
+  <div class="apps-layout">
+    <div v-if="boards.length > 0" class="app-columns">
       <board-item
         v-for="board in boards"
         :key="board.boardId"
@@ -77,24 +77,18 @@ useHead({
 </script>
 
 <style lang='sass'>
-.boards-lists
-	display: grid
-	grid-template-columns: 1fr
-	grid-column-gap: 1rem
-	grid-row-gap: 1rem
-	justify-content: space-between
-	margin-bottom: 4rem
+.apps-layout
+  display: flex
+  flex-direction: column
+  gap: 2rem
+  margin-bottom: 4rem
 
-@media (min-width: 768px)
-	.boards-lists
-		grid-template-columns: repeat(auto-fill, 48%)
-		grid-row-gap: 1.5rem
-
-@media (min-width: 992px)
-	.boards-lists
-		grid-template-columns: repeat(auto-fill, 30%)
-
-@media (min-width: 1200px)
-	.boards-lists
-		grid-template-columns: repeat(auto-fill, 23%)
+.app-columns
+  display: flex
+  flex-wrap: wrap
+  gap: 1.5rem
+  padding-bottom: 1rem
+  // Break out of container-view padding to align with header
+  margin-left: calc(-3rem + 15px)
+  margin-right: calc(-3rem + 15px)
 </style>
