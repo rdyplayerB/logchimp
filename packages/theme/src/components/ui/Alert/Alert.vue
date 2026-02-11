@@ -88,6 +88,8 @@ onMounted(() => {
 .alert {
   padding: 1rem;
   border-radius: var(--border-radius-default);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   .header {
     display: grid;
@@ -106,7 +108,7 @@ onMounted(() => {
   }
 
   .title {
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 0;
   }
 
@@ -121,43 +123,54 @@ onMounted(() => {
 }
 
 .alert.success {
-	background-color: var(--color-color-success);
+	background-color: rgba(100, 178, 133, 0.2);
+  border: 1px solid rgba(100, 178, 133, 0.3);
+
+  .icon svg {
+    stroke: var(--color-color-success);
+  }
+
+  .title {
+    color: var(--color-color-success);
+  }
 }
 
 .alert.warning {
   background-color: var(--color-yellow-50);
+  border: 1px solid rgba(250, 204, 21, 0.3);
 
   .icon svg {
     stroke: var(--color-yellow-400);
   }
 
   .title {
-    color: var(--color-yellow-800);
+    color: var(--color-yellow-400);
   }
 
   .description {
-    color: var(--color-yellow-700);
+    color: var(--color-yellow-400);
   }
 }
 
 .alert.error {
   background-color: var(--color-red-50);
+  border: 1px solid rgba(248, 113, 113, 0.3);
 
   .icon svg {
     stroke: var(--color-red-400);
   }
 
   .title {
-    color: var(--color-red-800);
+    color: var(--color-red-400);
   }
 
   .description {
-    color: var(--color-red-700);
+    color: var(--color-red-400);
   }
 }
 
 .alert.toast {
-  box-shadow: 2px 4px 20px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   animation-name: alertfade;
 	animation-timing-function: linear;
   max-width: 250px;

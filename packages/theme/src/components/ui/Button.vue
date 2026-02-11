@@ -76,15 +76,17 @@ function click() {
 	border: none
 	padding: 0
 	font-family: inherit
-	font-size: inherit
+	font-size: 13px
+	letter-spacing: 0.05em
 	position: relative
 	border-radius: var(--border-radius-default)
-	font-weight: 500
+	font-weight: 400
 	display: flex
 	justify-content: center
 	cursor: pointer
 	user-select: none
 	line-height: 20px
+	transition: all 0.15s ease
 
 .button-loader
 	border-radius: var(--border-radius-default)
@@ -121,35 +123,42 @@ function click() {
 		transform: rotate(360deg)
 
 .button-primary
-	background-color: var(--color-brand-color)
-	color: var(--color-white)
+	background-color: var(--color-text-primary)
+	color: var(--bg-primary)
+
+	&:hover
+		opacity: 0.85
 
 	.button-loader
-		background-color: var(--color-brand-color)
+		background-color: var(--color-text-primary)
 
 		svg
-			stroke: var(--color-white)
+			stroke: var(--bg-primary)
 
 .button-outline
-	border: 1px solid var(--color-white-light)
+	border: 1px solid var(--border-color)
+	background-color: transparent
+	color: var(--color-text-secondary)
 
 	&:hover
-		border-color: var(--color-white)
+		border-color: var(--border-color-hover)
+		color: var(--color-text-primary)
 
 .button-background
-	color: var(--color-brand-color)
+	color: var(--color-text-secondary)
+	background-color: var(--bg-secondary)
 
 	.button-loader
-		background-color: var(--color-gray-97)
+		background-color: var(--bg-secondary)
 
 		svg
-			stroke: var(--color-gray-90)
+			stroke: var(--color-text-tertiary)
 
 	&:hover
-		background-color: var(--color-gray-97)
+		background-color: rgba(255, 255, 255, 0.05)
 
 .button-primary-disabled
-	opacity: 0.7
+	opacity: 0.5
 	cursor: not-allowed
 </style>
 

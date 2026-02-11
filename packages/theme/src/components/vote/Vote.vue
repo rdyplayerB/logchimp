@@ -115,35 +115,44 @@ async function changeVote() {
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding: 0.312rem 0.5rem 0.5rem
-	border: 1px solid var(--color-gray-90)
+	padding: 0.375rem 0.5rem 0.5rem
+	border: 1px solid var(--border-color)
 	border-radius: var(--border-radius-default)
 	cursor: pointer
 	user-select: none
+	transition: all 0.2s ease
+	color: var(--color-text-secondary)
+	font-size: 12px
+	letter-spacing: 0.05em
+	min-width: 2.5rem
 
 	&:hover
-		border-color: var(--color-gray-80)
+		border-color: var(--border-color-hover)
+		opacity: 0.8
 
 .post-voters-arrow
-	margin-bottom: 0.185rem
-	fill: var(--color-gray-90)
+	margin-bottom: 0.125rem
+	fill: var(--color-text-tertiary)
+	width: 12px
+	height: 12px
 
 .post-voters-vote
-	fill: var(--color-brand-color)
+	fill: var(--color-text-primary)
 
 .post-voters-loading
-	opacity: 0.8
+	opacity: 0.6
 	cursor: wait
 
 .post-voters-disabled
-	background-color: var(--color-gray-95)
-	border-color: var(--color-gray-95)
+	background-color: rgba(255, 255, 255, 0.02)
+	border-color: var(--border-color)
 	cursor: default
-	opacity: 0.7
+	opacity: 0.4
 
 	&:hover
-		border-color: var(--color-gray-95)
+		border-color: var(--border-color)
+		opacity: 0.4
 
 	.post-voters-arrow
-		fill: var(--color-gray-80)
+		fill: var(--color-text-tertiary)
 </style>

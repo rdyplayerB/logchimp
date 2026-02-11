@@ -14,7 +14,7 @@ export default {
 .auth-form
 	width: 24rem
 	padding: 0 1rem
-	margin-top: 2rem
+	margin-top: 3rem
 	margin-left: auto
 	margin-right: auto
 
@@ -29,10 +29,11 @@ export default {
 	text-align: center
 	margin-top: 1rem
 	margin-bottom: 0
+	color: var(--color-text-primary)
 
 .auth-form-other
 	font-size: 0.8rem
 	text-align: center
-	color: var(--color-gray-60)
+	color: var(--color-text-tertiary)
 	margin-top: 1.5rem
 </style>

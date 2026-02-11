@@ -83,21 +83,33 @@ function updateVoters(voters: VoteEventType) {
 	text-decoration: none
 
 .post-content-title
-	color: var(--color-text-black)
+	color: var(--color-text-primary)
+	font-size: 14px
+	font-weight: 400
+	letter-spacing: 0.02em
 	margin-bottom: 0
+	transition: opacity 0.15s ease
+
+	&:hover
+		opacity: 0.7
 
 .post-roadmap
-	text-transform: uppercase
-	font-weight: 500
-	font-size: 0.875rem
+	text-transform: lowercase
+	font-weight: 400
+	font-size: 12px
 	margin-top: 0.25rem
+	letter-spacing: 0.05em
 
 .post-content-description
 	margin-top: 0.5rem
-	color: var(--color-gray-40)
+	color: var(--color-text-secondary)
+	font-size: 13px
+	letter-spacing: 0.02em
 	margin-bottom: 0.625rem
+	line-height: 1.6
 
 .post-date
-	color: var(--color-gray-70)
-	font-size: 0.875rem
+	color: var(--color-text-tertiary)
+	font-size: 12px
+	letter-spacing: 0.05em
 </style>

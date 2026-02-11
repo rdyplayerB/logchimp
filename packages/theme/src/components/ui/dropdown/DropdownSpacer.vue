@@ -4,7 +4,7 @@
 
 <style lang='sass'>
 .dropdown-spacer
-	background-color: var(--color-gray-90)
+	background-color: var(--border-color)
 	margin: 0.375rem 0
 	border-width: 0
 	height: 1px

@@ -7,34 +7,39 @@
 	width: 100%
 
 .input-field
-	color: var(--color-text-black)
-	padding: 0.625rem 0.75rem
-	background-color: var(--color-white)
+	color: var(--color-text-primary)
+	padding: 0.75rem 1rem
+	background-color: var(--bg-secondary)
 	border-radius: var(--border-radius-default)
 	border-width: 1px
 	border-style: solid
-	border-color: var(--color-gray-90)
+	border-color: var(--border-color)
 	font:
 		family: inherit
-		size: 0.875rem
+		size: 13px
+	letter-spacing: 0.02em
 	display: flex
 	outline: none
+	transition: border-color 0.2s ease
 
 	&::placeholder
-		color: var(--color-gray-80)
+		color: var(--color-text-tertiary)
 
 	&:focus
-		border-color: var(--color-gray-80)
+		border-color: var(--border-color-hover)
 
 .input-field-label
-	font-size: 0.75rem
-	margin-bottom: 0.375rem
-	color: var(--color-gray-60)
+	font-size: 11px
+	margin-bottom: 0.5rem
+	color: var(--color-text-tertiary)
+	text-transform: lowercase
+	letter-spacing: 0.08em
 
 .input-field-disabled
-	background-color: var(--color-gray-90)
-	color: var(--color-gray-70)
-	border-color: var(--color-gray-90)
+	background-color: rgba(255, 255, 255, 0.02)
+	color: var(--color-text-tertiary)
+	border-color: var(--border-color)
+	cursor: not-allowed
 
 .input-error
 	border-color: var(--color-color-danger)
@@ -49,6 +54,6 @@
 	resize: vertical
 
 .input-description
-	color: var(--color-gray-70)
+	color: var(--color-text-tertiary)
 	margin-top: 0.25rem
 	font-size: 0.75rem

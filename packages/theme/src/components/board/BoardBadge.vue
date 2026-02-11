@@ -48,15 +48,25 @@ defineProps({
 .board-badge
 	display: block
 	user-select: none
+	text-decoration: none
 
 .post-board
 	display: inline-flex
 	align-items: center
 	padding: 0.25rem 0.625rem
-	background-color: var(--color-gray-95)
+	background-color: rgba(255, 255, 255, 0.03)
+	border: 1px solid var(--border-color-subtle)
 	border-radius: 1rem
+	transition: all 0.2s ease
+
+	&:hover
+		background-color: rgba(255, 255, 255, 0.06)
+		opacity: 0.8
 
 .post-board-name
 	margin-left: 0.375rem
-	color: var(--color-gray-50)
+	color: var(--color-text-tertiary)
+	font-size: 11px
+	letter-spacing: 0.05em
+	text-transform: lowercase
 </style>

@@ -46,12 +46,13 @@ function click() {
 	align-items: center
 	cursor: pointer
 	user-select: none
+	transition: background-color 0.15s ease
 
 	&:hover:not(.dropdown-item-disabled)
-		background-color: var(--color-gray-97)
+		background-color: rgba(255, 255, 255, 0.05)
 
 .dropdown-item-content
-	color: var(--color-gray-40)
+	color: var(--color-text-secondary)
 	font-weight: 400
 	white-space: nowrap
 
@@ -62,16 +63,16 @@ function click() {
 	svg
 		width: 1rem
 		height: 1rem
-		stroke: var(--color-gray-60)
+		stroke: var(--color-text-tertiary)
 
 .dropdown-menu-icon svg
-	stroke: var(--color-gray-60)
+	stroke: var(--color-text-tertiary)
 	width: 1.125rem
 	height: 1.125rem
 
 // dropdown item disabled
 .dropdown-item-disabled
-	opacity: 0.7
+	opacity: 0.5
 	cursor: not-allowed
 
 // dopdown item danger

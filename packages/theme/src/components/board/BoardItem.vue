@@ -50,28 +50,35 @@ defineProps({
 .board-item
 	display: flex
 	align-items: center
-	padding: 1rem
-	background-color: var(--color-gray-97)
+	padding: 1rem 1.25rem
+	background-color: var(--bg-secondary)
+	border: 1px solid var(--border-color)
 	border-radius: var(--border-radius-default)
 	user-select: none
+	transition: all 0.2s ease
+	text-decoration: none
 
 	&:hover
-		background-color: var(--color-gray-95)
+		border-color: var(--border-color-hover)
+		opacity: 0.8
 
 .board-item-name-and-posts
-	margin-left: 0.625rem
+	margin-left: 0.75rem
 	display: flex
 	justify-content: space-between
 	align-items: center
 	width: 100%
 
 .board-item-name
-	color: var(--color-gray-40)
-	font-weight: 500
+	color: var(--color-text-primary)
+	font-size: 13px
+	font-weight: 400
+	letter-spacing: 0.05em
 
 .board-item-postcount
-	color: var(--color-gray-60)
-	font-size: 0.875rem
-	font-weight: 600
+	color: var(--color-text-tertiary)
+	font-size: 12px
+	font-weight: 400
+	letter-spacing: 0.05em
 	margin-left: 1rem
 </style>

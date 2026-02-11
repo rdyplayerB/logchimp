@@ -2,54 +2,30 @@
   <header class="header">
     <div class="container">
       <div class="header-container">
-        <site-branding :title="settingsStore.get.title" :logo="settingsStore.get.logo" text-color="white" />
+        <a href="https://birudo.studio" class="back-link">
+          ← home
+        </a>
+        <span class="separator">·</span>
+        <span class="page-title">feedback</span>
         <nav class="header-nav">
-          <dropdown-wrapper v-if="userStore.user.userId" class="nav-item">
-            <template #toggle>
-              <avatar
-                class="nav-profile"
-                :src="userStore.user.avatar"
-                :name="userStore.user.name || userStore.user.username"
-              />
-            </template>
-            <template #default="dropdown">
-              <dropdown v-if="dropdown.active" class="nav-profile-dropdown sw">
-                <dropdown-item v-if="accessDashboard" @click="openDashboard">
-                  <template #icon>
-                    <dashboard-icon />
-                  </template>
-                  Dashboard
-                </dropdown-item>
-                <dropdown-item @click="settings">
-                  <template #icon>
-                    <settings-icon />
-                  </template>
-                  Settings
-                </dropdown-item>
-                <dropdown-spacer />
-                <dropdown-item @click="userStore.logout">
-                  <template #icon>
-                    <logout-icon />
-                  </template>
-                  Sign out
-                </dropdown-item>
-                <dropdown-item v-if="showVersion" :disabled="true">
-                  {{ version }}
-                </dropdown-item>
-              </dropdown>
-            </template>
-          </dropdown-wrapper>
-          <div v-else class="nav-item nav-auth">
-            <Button type="primary" href="/login" size="small"> Login </Button>
-            <Button
-              v-if="settingsStore.get.allowSignup"
-              type="primary"
-              :outline="true"
-              href="/join"
-              size="small"
-            >
-              Create an account
-            </Button>
+          <div v-if="userStore.user.userId" class="nav-links">
+            <router-link v-if="accessDashboard" to="/dashboard" class="nav-link">
+              dashboard
+            </router-link>
+            <router-link to="/settings" class="nav-link">
+              settings
+            </router-link>
+            <a href="#" class="nav-link" @click.prevent="userStore.logout">
+              sign out
+            </a>
+          </div>
+          <div v-else class="nav-links">
+            <router-link to="/login" class="nav-link">
+              login
+            </router-link>
+            <router-link v-if="settingsStore.get.allowSignup" to="/join" class="nav-link">
+              join
+            </router-link>
           </div>
         </nav>
       </div>
@@ -61,87 +37,69 @@
 <script setup lang="ts">
 // packages
 import { computed } from "vue";
-import {
-  LayoutDashboard as DashboardIcon,
-  Settings as SettingsIcon,
-  LogOut as LogoutIcon
-} from "lucide-vue";
 
-import { router } from "../router";
 import { useSettingStore } from "../store/settings"
 import { useUserStore } from "../store/user"
 
 // components
 import Navbar from "./Navbar.vue";
-import SiteBranding from "./site/SiteBranding.vue";
-import DropdownWrapper from "./ui/dropdown/DropdownWrapper.vue";
-import Dropdown from "./ui/dropdown/Dropdown.vue";
-import DropdownItem from "./ui/dropdown/DropdownItem.vue";
-import DropdownSpacer from "./ui/dropdown/DropdownSpacer.vue";
-import Button from "./ui/Button.vue";
-import { Avatar } from "./ui/Avatar";
 
 const settingsStore = useSettingStore()
 const userStore = useUserStore()
 
 const accessDashboard = computed(() => {
-	const checkPermission = userStore.permissions.includes("dashboard:read");
-	return checkPermission;
-})
-
-function openDashboard() {
-	router.push("/dashboard");
-}
-
-function settings() {
-	router.push("/settings");
-}
-
-const showVersion = computed(() => {
-	return (
-		userStore.permissions.includes("dashboard:read") &&
-		settingsStore.get.developer_mode
-	);
-})
-
-const version = computed(() => {
-	return process.env.version;
+	return userStore.permissions.includes("dashboard:read");
 })
 </script>
 
 <style lang='sass'>
 .header
-  background-color: var(--color-brand-color)
-
-.header-container, .nav-item
-  display: flex
-  align-items: center
+  background-color: transparent
 
 .header-container
-  padding: 1rem 0
+  display: flex
+  align-items: center
+  padding: 2rem 0
+
+.back-link
+  color: var(--color-text-tertiary)
+  font-size: 13px
+  font-weight: 400
+  letter-spacing: 0.05em
+  text-decoration: none
+  transition: opacity 0.2s ease
+
+  &:hover
+    opacity: 0.7
+
+.separator
+  color: var(--color-text-tertiary)
+  margin: 0 0.75rem
+  opacity: 0.5
+
+.page-title
+  color: var(--color-text-primary)
+  font-size: 13px
+  font-weight: 400
+  letter-spacing: 0.05em
 
 // nav
 .header-nav
   margin-left: auto
 
-.nav-item
-  margin-left: 1.5rem
-  color: rgba(255, 255, 255, 0.5)
-  font-weight: 500
-  position: relative
+.nav-links
+  display: flex
+  align-items: center
+  gap: 2rem
 
-  &:first-child
-    margin-left: 0
-
-.nav-profile
-  cursor: pointer
-
-.nav-profile-dropdown
-  top: 2.4rem
-
-.nav-auth-link
-  cursor: pointer
+.nav-link
+  color: var(--color-text-tertiary)
+  font-size: 13px
+  font-weight: 400
+  letter-spacing: 0.05em
+  text-decoration: none
+  transition: opacity 0.2s ease
 
   &:hover
-    color: var(--color-white)
+    opacity: 0.7
 </style>

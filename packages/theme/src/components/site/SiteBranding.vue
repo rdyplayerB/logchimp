@@ -1,21 +1,6 @@
 <template>
 	<router-link :to="link" :class="$style.branding">
-		<div :class="$style.placeholder">
-			<img :class="$style.image"
-				:src="logo"
-				:alt="title"
-			>
-		</div>
-		<h5
-			v-if="title"
-			:class="{
-				[$style.name]: true,
-				[$style['name-black']]: textColor === 'black',
-				[$style['name-white']]: textColor === 'white'
-			}"
-		>
-			{{ title }}
-		</h5>
+		<span :class="$style.name">{{ title }}</span>
 	</router-link>
 </template>
 
@@ -47,29 +32,18 @@ const link = computed(() =>  props.dashboard ? "/dashboard" : "/")
 
 <style lang='sass' module>
 .branding
-	--logo-size: 2rem
 	display: flex
 	align-items: center
 	user-select: none
+	transition: opacity 0.2s ease
 
-.placeholder
-	width: var(--logo-size)
-	height: var(--logo-size)
-	background-color: var(--color-gray-97)
-	border-radius: 3rem
-	cursor: pointer
-	user-select: none
-
-.image
-	width: var(--logo-size)
+	&:hover
+		opacity: 0.7
 
 .name
-	margin-left: 0.625rem
-	margin-bottom: 0
-
-.name-black
-	color: var(--color-text-black)
-
-.name-white
-	color: var(--color-white)
+	font-size: 13px
+	font-weight: 400
+	letter-spacing: 0.05em
+	text-transform: lowercase
+	color: var(--color-text-primary)
 </style>
