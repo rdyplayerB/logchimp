@@ -3,7 +3,7 @@
     v-if="showBoard"
     data-test="board-badge"
     class="board-badge"
-    :to="`/boards/${url}`"
+    :to="`/apps/${url}`"
   >
     <div class="post-board">
       <div
