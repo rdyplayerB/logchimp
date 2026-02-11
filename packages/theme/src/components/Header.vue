@@ -28,11 +28,6 @@
           </div>
         </nav>
       </div>
-      <div class="header-breadcrumb">
-        <a href="https://birudo.studio" class="back-link">← back</a>
-        <span class="breadcrumb-sep">·</span>
-        <span class="breadcrumb-current">feedback</span>
-      </div>
       <navbar />
     </div>
   </header>
@@ -87,37 +82,6 @@ const accessDashboard = computed(() => {
   font-size: 13px
   font-weight: 400
   letter-spacing: 0.1em
-  text-transform: lowercase
-
-.header-breadcrumb
-  display: flex
-  align-items: center
-  gap: 0.5rem
-  margin-top: 1.5rem
-  padding-bottom: 0.5rem
-
-.back-link
-  color: var(--color-text-tertiary)
-  font-size: 11px
-  font-weight: 400
-  letter-spacing: 0.08em
-  text-decoration: none
-  text-transform: lowercase
-  transition: opacity 0.2s ease
-
-  &:hover
-    opacity: 0.7
-
-.breadcrumb-sep
-  color: var(--color-text-tertiary)
-  font-size: 11px
-  opacity: 0.4
-
-.breadcrumb-current
-  color: var(--color-text-secondary)
-  font-size: 11px
-  font-weight: 400
-  letter-spacing: 0.08em
   text-transform: lowercase
 
 // nav
