@@ -153,6 +153,9 @@ useHead({
   display: flex
   gap: 1.5rem
   padding-bottom: 1rem
+  // Break out of container-view padding to align with header
+  margin-left: calc(-3rem + 15px)
+  margin-right: calc(-3rem + 15px)
 
 .app-column
   flex: 1 1 0
