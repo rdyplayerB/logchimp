@@ -82,11 +82,11 @@ async function getBoardPosts() {
 onMounted(() => isSetup());
 
 useHead({
-	title: "Home",
+	title: "feedback | ビルド studio",
 	meta: [
 		{
 			name: "og:title",
-			content: () => `Home • ${settingsStore.get.title}`
+			content: "feedback | ビルド studio"
 		}
 	]
 })

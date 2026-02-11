@@ -162,11 +162,11 @@ onMounted(() => {
 })
 
 useHead({
-	title: "Login",
+	title: "login | feedback | ビルド studio",
 	meta: [
 		{
 			name: "og:title",
-			content: () => `Login • ${siteSettings.title}`
+			content: "login | feedback | ビルド studio"
 		}
 	]
 })

@@ -124,11 +124,11 @@ async function getBoard() {
 onMounted(() => getBoard())
 
 useHead({
-  title: () => `${board.name ? `${board.name} • ` : ''}App`,
+  title: () => `${board.name ? `${board.name} | ` : ''}feedback | ビルド studio`,
   meta: [
     {
       name: "og:title",
-      content: () => `${board.name} • App • ${siteSettings.title}`
+      content: () => `${board.name} | feedback | ビルド studio`
     },
     !board.display
       ? {

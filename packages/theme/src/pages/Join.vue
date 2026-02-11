@@ -162,11 +162,11 @@ onMounted(() => {
 })
 
 useHead({
-	title: "Join",
+	title: "join | feedback | ビルド studio",
 	meta: [
 		{
 			name: "og:title",
-			content: () => `Join • ${siteSettings.title}`
+			content: "join | feedback | ビルド studio"
 		}
 	]
 })

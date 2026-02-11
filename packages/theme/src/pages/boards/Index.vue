@@ -66,11 +66,11 @@ async function getBoards() {
 }
 
 useHead({
-	title: "Apps",
+	title: "apps | feedback | ビルド studio",
 	meta: [
 		{
 			name: "og:title",
-			content: () => `Apps • ${siteSettings.title}`
+			content: "apps | feedback | ビルド studio"
 		}
 	]
 })
