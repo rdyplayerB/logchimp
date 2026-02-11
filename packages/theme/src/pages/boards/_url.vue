@@ -1,6 +1,15 @@
 <template>
   <div v-if="!loading">
     <div v-if="isBoardExist">
+      <div class="board-header">
+        <img
+          v-if="boardLogo"
+          :src="boardLogo"
+          :alt="board.name"
+          class="board-logo"
+        />
+        <h2 class="board-name">{{ board.name }}</h2>
+      </div>
       <div class="flex flex-col-reverse lg:flex-row mb-16 lg:space-x-8">
         <main class="grow-[2] shrink basis-0">
           <tab>
@@ -96,6 +105,18 @@ const activeTab = computed(() => {
   }
 })
 
+// Map board URLs to logo files
+const logoMap: Record<string, string> = {
+  'rufus-remover': '/logos/rufusremover.png',
+  'grokblock': '/logos/grokblock.png',
+  'gelp': '/logos/gelp.svg',
+}
+
+const boardLogo = computed(() => {
+  const url = route.params.url?.toString().toLowerCase()
+  return logoMap[url] || null
+})
+
 function updateTab(tabValue: string) {
   tab.value = tabValue;
 };
@@ -136,3 +157,26 @@ useHead({
   ]
 })
 </script>
+
+<style lang='sass'>
+.board-header
+  display: flex
+  align-items: center
+  gap: 1rem
+  margin-bottom: 2rem
+  padding-bottom: 1.5rem
+  border-bottom: 1px solid var(--border-color)
+
+.board-logo
+  width: 48px
+  height: 48px
+  border-radius: 12px
+  object-fit: contain
+
+.board-name
+  color: var(--color-text-primary)
+  font-size: 1.25rem
+  font-weight: 400
+  letter-spacing: 0.02em
+  margin: 0
+</style>
