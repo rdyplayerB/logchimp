@@ -28,6 +28,7 @@
           </div>
         </nav>
       </div>
+      <div class="header-divider"></div>
       <navbar />
     </div>
   </header>
@@ -60,6 +61,11 @@ const accessDashboard = computed(() => {
   align-items: center
   justify-content: space-between
   padding-top: 2rem
+  padding-bottom: 1.5rem
+
+.header-divider
+  height: 1px
+  background: linear-gradient(90deg, transparent, var(--border-color) 20%, var(--border-color) 80%, transparent)
 
 .brand
   display: flex
