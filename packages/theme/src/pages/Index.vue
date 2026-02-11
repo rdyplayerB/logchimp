@@ -160,28 +160,14 @@ useHead({
 
 .app-columns
   display: flex
-  gap: 1.5rem
-  overflow-x: auto
+  flex-wrap: wrap
+  gap: 1rem
   padding-bottom: 1rem
 
-  // Hide scrollbar but keep functionality
-  scrollbar-width: thin
-  scrollbar-color: var(--border-color) transparent
-
-  &::-webkit-scrollbar
-    height: 4px
-
-  &::-webkit-scrollbar-track
-    background: transparent
-
-  &::-webkit-scrollbar-thumb
-    background: var(--border-color)
-    border-radius: 2px
-
 .app-column
-  flex: 0 0 320px
-  min-width: 280px
-  max-width: 360px
+  flex: 1 1 0
+  min-width: 200px
+  max-width: 320px
   display: flex
   flex-direction: column
   background: rgba(255, 255, 255, 0.02)
