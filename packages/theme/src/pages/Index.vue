@@ -1,43 +1,44 @@
 <template>
   <div class="home-layout">
-    <main class="home-main">
-      <div v-if="Object.keys(groupedPosts).length > 0" class="app-columns">
-        <div
-          v-for="(group, boardId) in groupedPosts"
-          :key="boardId"
-          class="app-column"
-        >
-          <router-link
-            v-if="group.board"
-            :to="`/apps/${group.board.url}`"
-            class="app-column-header"
-          >
-            <div class="app-column-header-left">
-              <div
-                class="app-column-dot"
-                :style="{ backgroundColor: `#${group.board.color}` }"
-              />
-              <span class="app-column-name">{{ group.board.name }}</span>
-            </div>
-            <span class="app-column-count">{{ group.posts.length }}</span>
-          </router-link>
-          <div class="app-column-posts">
-            <post-item
-              v-for="post in group.posts"
-              :key="post.postId"
-              :post="post"
-              :show-board="false"
-            />
-          </div>
-        </div>
-      </div>
-
-      <infinite-scroll @infinite="getBoardPosts" :state="state" />
-    </main>
-    <aside class="home-aside">
+    <!-- Show login/setup cards when not logged in -->
+    <aside v-if="showSiteSetupCard || !userStore.getUserId" class="home-aside">
       <site-setup-card v-if="showSiteSetupCard" />
       <login-card v-if="!userStore.getUserId && !showSiteSetupCard" />
     </aside>
+
+    <!-- Main content: app columns spanning full width -->
+    <div v-if="Object.keys(groupedPosts).length > 0" class="app-columns">
+      <div
+        v-for="(group, boardId) in groupedPosts"
+        :key="boardId"
+        class="app-column"
+      >
+        <router-link
+          v-if="group.board"
+          :to="`/apps/${group.board.url}`"
+          class="app-column-header"
+        >
+          <div class="app-column-header-left">
+            <div
+              class="app-column-dot"
+              :style="{ backgroundColor: `#${group.board.color}` }"
+            />
+            <span class="app-column-name">{{ group.board.name }}</span>
+          </div>
+          <span class="app-column-count">{{ group.posts.length }}</span>
+        </router-link>
+        <div class="app-column-posts">
+          <post-item
+            v-for="post in group.posts"
+            :key="post.postId"
+            :post="post"
+            :show-board="false"
+          />
+        </div>
+      </div>
+    </div>
+
+    <infinite-scroll @infinite="getBoardPosts" :state="state" />
   </div>
 </template>
 
@@ -144,30 +145,18 @@ useHead({
   gap: 2rem
   margin-bottom: 4rem
 
-  @media (min-width: 1024px)
-    flex-direction: row
-    gap: 2rem
-
-.home-main
-  flex: 1
-  min-width: 0
-
 .home-aside
-  flex-shrink: 0
-
-  @media (min-width: 1024px)
-    width: 280px
+  max-width: 320px
+  margin-bottom: 1rem
 
 .app-columns
   display: flex
-  flex-wrap: wrap
-  gap: 1rem
+  gap: 1.5rem
   padding-bottom: 1rem
 
 .app-column
   flex: 1 1 0
-  min-width: 200px
-  max-width: 320px
+  min-width: 250px
   display: flex
   flex-direction: column
   background: rgba(255, 255, 255, 0.02)
