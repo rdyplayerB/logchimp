@@ -1,12 +1,11 @@
 <template>
   <header class="header">
     <div class="container">
-      <div class="header-container">
-        <a href="https://birudo.studio" class="back-link">
-          ← home
+      <div class="header-top">
+        <a href="https://birudo.studio" class="brand">
+          <span class="brand-kanji">ビルド</span>
+          <span class="brand-text">studio</span>
         </a>
-        <span class="separator">·</span>
-        <span class="page-title">feedback</span>
         <nav class="header-nav">
           <div v-if="userStore.user.userId" class="nav-links">
             <router-link v-if="accessDashboard" to="/dashboard" class="nav-link">
@@ -28,6 +27,11 @@
             </router-link>
           </div>
         </nav>
+      </div>
+      <div class="header-breadcrumb">
+        <a href="https://birudo.studio" class="breadcrumb-link">home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">feedback</span>
       </div>
       <navbar />
     </div>
@@ -56,36 +60,69 @@ const accessDashboard = computed(() => {
 .header
   background-color: transparent
 
-.header-container
+.header-top
   display: flex
   align-items: center
-  padding: 2rem 0
+  justify-content: space-between
+  padding-top: 2rem
 
-.back-link
-  color: var(--color-text-tertiary)
-  font-size: 13px
-  font-weight: 400
-  letter-spacing: 0.05em
+.brand
+  display: flex
+  align-items: baseline
+  gap: 0.5rem
   text-decoration: none
   transition: opacity 0.2s ease
 
   &:hover
     opacity: 0.7
 
-.separator
-  color: var(--color-text-tertiary)
-  margin: 0 0.75rem
-  opacity: 0.5
-
-.page-title
+.brand-kanji
   color: var(--color-text-primary)
+  font-size: 1.25rem
+  font-weight: 400
+  letter-spacing: 0.02em
+
+.brand-text
+  color: var(--color-text-tertiary)
   font-size: 13px
   font-weight: 400
-  letter-spacing: 0.05em
+  letter-spacing: 0.1em
+  text-transform: lowercase
+
+.header-breadcrumb
+  display: flex
+  align-items: center
+  gap: 0.5rem
+  margin-top: 1.5rem
+  padding-bottom: 0.5rem
+
+.breadcrumb-link
+  color: var(--color-text-tertiary)
+  font-size: 11px
+  font-weight: 400
+  letter-spacing: 0.08em
+  text-decoration: none
+  text-transform: lowercase
+  transition: opacity 0.2s ease
+
+  &:hover
+    opacity: 0.7
+
+.breadcrumb-sep
+  color: var(--color-text-tertiary)
+  font-size: 11px
+  opacity: 0.4
+
+.breadcrumb-current
+  color: var(--color-text-secondary)
+  font-size: 11px
+  font-weight: 400
+  letter-spacing: 0.08em
+  text-transform: lowercase
 
 // nav
 .header-nav
-  margin-left: auto
+  display: flex
 
 .nav-links
   display: flex
