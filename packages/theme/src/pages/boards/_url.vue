@@ -40,7 +40,7 @@
       </div>
     </div>
     <p v-else>
-      There is no such board.
+      There is no such app.
     </p>
   </div>
   <div v-else class="loader-container">
@@ -124,11 +124,11 @@ async function getBoard() {
 onMounted(() => getBoard())
 
 useHead({
-  title: () => `${board.name ? `${board.name} • ` : ''}Board`,
+  title: () => `${board.name ? `${board.name} • ` : ''}App`,
   meta: [
     {
       name: "og:title",
-      content: () => `${board.name} • Board • ${siteSettings.title}`
+      content: () => `${board.name} • App • ${siteSettings.title}`
     },
     !board.display
       ? {

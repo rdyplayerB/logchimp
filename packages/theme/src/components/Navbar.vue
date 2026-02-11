@@ -3,8 +3,8 @@
 		<router-link to="/" class="navbar-item">
 			posts
 		</router-link>
-		<router-link to="/boards" class="navbar-item">
-			boards
+		<router-link to="/apps" class="navbar-item">
+			apps
 		</router-link>
 	</nav>
 </template>

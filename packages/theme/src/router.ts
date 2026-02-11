@@ -17,14 +17,23 @@ const routes = [
         component: () => import("./pages/Index.vue"),
       },
       {
-        path: "boards",
-        name: "Boards",
+        path: "apps",
+        name: "Apps",
         component: () => import("./pages/boards/Index.vue"),
       },
       {
-        path: "boards/:url",
-        name: "Board view",
+        path: "apps/:url",
+        name: "App view",
         component: () => import("./pages/boards/_url.vue"),
+      },
+      // Redirects for old /boards URLs
+      {
+        path: "boards",
+        redirect: "/apps",
+      },
+      {
+        path: "boards/:url",
+        redirect: (to: RouteLocationNormalized) => `/apps/${to.params.url}`,
       },
       {
         path: "roadmaps",

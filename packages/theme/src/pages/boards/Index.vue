@@ -13,7 +13,7 @@
 
     <infinite-scroll @infinite="getBoards" :state="state">
       <template #no-results>
-        <p>There are no boards.</p>
+        <p>There are no apps.</p>
       </template>
     </infinite-scroll>
   </div>
@@ -66,11 +66,11 @@ async function getBoards() {
 }
 
 useHead({
-	title: "Boards",
+	title: "Apps",
 	meta: [
 		{
 			name: "og:title",
-			content: () => `Boards • ${siteSettings.title}`
+			content: () => `Apps • ${siteSettings.title}`
 		}
 	]
 })
