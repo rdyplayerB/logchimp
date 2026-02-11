@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!loading">
+  <div v-if="!loading" class="app-page">
     <div v-if="isBoardExist">
       <div class="board-header">
         <h2 class="board-name">{{ board.name }}</h2>
       </div>
-      <div class="flex flex-col-reverse lg:flex-row mb-16 lg:space-x-8">
-        <main class="grow-[2] shrink basis-0">
+      <div class="app-page-content">
+        <main class="app-page-main">
           <tab>
             <tab-item
               :class="{
@@ -33,7 +33,7 @@
 
           <component :is="activeTab" :board="board" />
         </main>
-        <aside class="flex-1 mb-6 lg:mb-0">
+        <aside class="app-page-aside">
           <create-post v-if="getUserId" :board-id="board.boardId" />
           <login-card v-else />
         </aside>
@@ -141,6 +141,11 @@ useHead({
 </script>
 
 <style lang='sass'>
+.app-page
+  // Break out of container-view padding to align with header
+  margin-left: calc(-3rem + 15px)
+  margin-right: calc(-3rem + 15px)
+
 .board-header
   margin-bottom: 2rem
   padding-bottom: 1.5rem
@@ -152,4 +157,21 @@ useHead({
   font-weight: 400
   letter-spacing: 0.02em
   margin: 0
+
+.app-page-content
+  display: flex
+  flex-direction: column-reverse
+  gap: 2rem
+  margin-bottom: 4rem
+
+  @media (min-width: 1024px)
+    flex-direction: row
+
+.app-page-main
+  flex: 2
+  min-width: 0
+
+.app-page-aside
+  flex: 1
+  max-width: 320px
 </style>
