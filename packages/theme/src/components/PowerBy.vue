@@ -26,9 +26,18 @@ const source = computed(() => route.name?.toString())
 .logchimp-poweredby
 	display: flex
 	justify-content: center
-	margin-top: 2rem
+	margin-top: 3rem
+	padding-bottom: 2rem
 
 	a
-		font-size: 0.875rem
-		color: var(--color-gray-70)
+		font-size: 10px
+		letter-spacing: 0.1em
+		color: var(--color-text-tertiary)
+		opacity: 0.4
+		text-decoration: none
+		text-transform: lowercase
+		transition: opacity 0.2s ease
+
+		&:hover
+			opacity: 0.6
 </style>
