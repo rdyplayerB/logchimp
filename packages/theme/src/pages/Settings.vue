@@ -51,7 +51,7 @@
         placeholder="Email address"
         :disabled="true"
       />
-      <div style="display: flex; justify-content: flex-start">
+      <div class="settings-actions">
         <Button
           type="primary"
           :loading="updateUserButtonLoading"
@@ -59,6 +59,9 @@
         >
           Update
         </Button>
+        <transition name="fade">
+          <span v-if="showSaved" class="saved-message">Changes saved</span>
+        </transition>
       </div>
     </div>
     <div v-else class="loader-container">
@@ -114,7 +117,8 @@ const loading = ref<boolean>(false);
 const isVerified = ref<boolean>(false);
 const serverError = ref<boolean>(false);
 const resendVerificationEmailButtonLoading = ref<boolean>(false);
-const updateUserButtonLoading = ref<boolean>(false)
+const updateUserButtonLoading = ref<boolean>(false);
+const showSaved = ref<boolean>(false);
 
 async function getUser() {
 	loading.value = true;
@@ -143,6 +147,12 @@ async function updateSettings() {
 
 		name.value = response.data.user.name;
 		updateUserButtonLoading.value = false;
+
+		// Show success message
+		showSaved.value = true;
+		setTimeout(() => {
+			showSaved.value = false;
+		}, 2500);
     // TODO: Add TS types
     // biome-ignore lint: Add TS types
 	} catch (error: any) {
@@ -203,5 +213,30 @@ useHead({
 <style lang='scss' module>
 .verification {
 	margin-bottom: 2rem;
+}
+</style>
+
+<style lang='scss' scoped>
+.settings-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.saved-message {
+  color: #22c55e;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
