@@ -16,11 +16,6 @@
 					</h2>
 					<div class="viewpost__meta">
 						<div class="viewpost__meta-author">
-							<avatar
-								class="viewpost__author-avatar"
-								:src="post.author.avatar"
-								:name="postAuthorName"
-							/>
 							{{ postAuthorName }}
 						</div>
 						<div class="viewpost__meta-divider">|</div>
@@ -131,7 +126,6 @@ import Vote, { VoteEventType } from "../../../components/vote/Vote.vue";
 import DropdownWrapper from "../../../components/ui/dropdown/DropdownWrapper.vue";
 import Dropdown from "../../../components/ui/dropdown/Dropdown.vue";
 import DropdownItem from "../../../components/ui/dropdown/DropdownItem.vue";
-import { Avatar } from "../../../components/ui/Avatar";
 import AddComment from "../../../components/activity/AddComment.vue"
 import ActivityItem from "../../../components/activity/ActivityItem.vue";
 
