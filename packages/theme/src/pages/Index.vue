@@ -1,9 +1,8 @@
 <template>
   <div class="home-layout">
-    <!-- Show login/setup cards when not logged in -->
-    <aside v-if="showSiteSetupCard || !userStore.getUserId" class="home-aside">
-      <site-setup-card v-if="showSiteSetupCard" />
-      <login-card v-if="!userStore.getUserId && !showSiteSetupCard" />
+    <!-- Show site setup card for initial setup only -->
+    <aside v-if="showSiteSetupCard" class="home-aside">
+      <site-setup-card />
     </aside>
 
     <!-- Main content: app columns spanning full width -->
@@ -61,16 +60,13 @@ import { isSiteSetup } from "../modules/site";
 import { getPosts } from "../modules/posts";
 import { getPublicBoards, Board } from "../modules/boards";
 import { useSettingStore } from "../store/settings"
-import { useUserStore } from "../store/user"
 
 // components
 import InfiniteScroll, { InfiniteScrollStateType } from "../components/ui/InfiniteScroll.vue";
 import PostItem from "../components/post/PostItem.vue";
 import SiteSetupCard from "../components/site/SiteSetupCard.vue";
-import LoginCard from "../components/auth/LoginCard.vue";
 
 const settingsStore = useSettingStore()
-const userStore = useUserStore()
 
 // TODO: Add TS type
 const posts = ref<any>([]);
