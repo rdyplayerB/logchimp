@@ -197,3 +197,25 @@ export const addComment = async ({
     },
   });
 };
+
+/**
+ * Delete post
+ *
+ * @param {string} postId post UUID
+ *
+ * @returns {object} response
+ */
+export const deletePost = async (postId: string) => {
+  const { authToken } = useUserStore();
+
+  return await axios({
+    method: "DELETE",
+    url: "/api/v1/posts",
+    data: {
+      id: postId,
+    },
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+};

@@ -20,7 +20,7 @@
 				placeholder="What would you use it for?"
 				:disabled="updatePostPermissionDisabled"
 			/>
-			<div style="display: flex; justify-content: flex-start">
+			<div class="edit-actions">
 				<Button
 					type="primary"
 					:loading="postSubmitting"
@@ -28,6 +28,15 @@
 					@click="savePost"
 				>
 					Update
+				</Button>
+				<Button
+					type="text"
+					class="delete-button"
+					:loading="postDeleting"
+					:disabled="updatePostPermissionDisabled"
+					@click="confirmDelete"
+				>
+					Delete
 				</Button>
 			</div>
 		</div>
@@ -54,7 +63,7 @@ import { useHead } from "@vueuse/head";
 import { router } from "../../../router";
 import { useSettingStore } from "../../../store/settings"
 import { useUserStore } from "../../../store/user"
-import { getPostBySlug, updatePost } from "../../../modules/posts";
+import { getPostBySlug, updatePost, deletePost } from "../../../modules/posts";
 
 // components
 import { FormFieldErrorType } from "../../../components/ui/input/formBaseProps";
@@ -88,6 +97,7 @@ const post = reactive({
 const postLoading = ref(false)
 const isPostExist = ref(true)
 const postSubmitting = ref(false)
+const postDeleting = ref(false)
 const postFieldError = reactive({
 	show: false,
 	message: ""
@@ -158,6 +168,23 @@ async function savePost() {
 	}
 }
 
+async function confirmDelete() {
+	if (!confirm("Are you sure you want to delete this post? This cannot be undone.")) {
+		return;
+	}
+
+	postDeleting.value = true;
+
+	try {
+		await deletePost(post.postId);
+		router.push("/");
+	} catch (error) {
+		console.log(error);
+	} finally {
+		postDeleting.value = false;
+	}
+}
+
 onMounted(() => getPost());
 
 useHead({
@@ -174,4 +201,15 @@ useHead({
 <style lang='sass'>
 .post-edit-heading
   margin-bottom: 2rem
+
+.edit-actions
+  display: flex
+  align-items: center
+  gap: 1.5rem
+
+.delete-button
+  color: rgba(255, 100, 100, 0.8) !important
+
+  &:hover
+    color: rgba(255, 100, 100, 1) !important
 </style>
