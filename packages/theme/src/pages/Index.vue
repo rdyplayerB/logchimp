@@ -34,6 +34,9 @@
             :post="post"
             :show-board="false"
           />
+          <div v-if="group.posts.length === 0" class="app-column-empty">
+            No feedback yet
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +59,7 @@ import { useHead } from "@vueuse/head";
 // modules
 import { isSiteSetup } from "../modules/site";
 import { getPosts } from "../modules/posts";
+import { getPublicBoards, Board } from "../modules/boards";
 import { useSettingStore } from "../store/settings"
 import { useUserStore } from "../store/user"
 
@@ -70,14 +74,25 @@ const userStore = useUserStore()
 
 // TODO: Add TS type
 const posts = ref<any>([]);
+const boards = ref<Board[]>([]);
 const page = ref<number>(1);
 const showSiteSetupCard = ref<boolean>(false)
 const state = ref<InfiniteScrollStateType>()
 
-// Group posts by their board/app
+// Group posts by their board/app, including boards with no posts
 const groupedPosts = computed(() => {
   const groups: Record<string, { board: any; posts: any[] }> = {};
 
+  // First, add all boards (even if they have no posts)
+  for (const board of boards.value) {
+    const boardId = board.boardId || board.url;
+    groups[boardId] = {
+      board: board,
+      posts: []
+    };
+  }
+
+  // Then, add posts to their respective boards
   for (const post of posts.value) {
     if (post.board) {
       const boardId = post.board.boardId || post.board.url;
@@ -103,6 +118,15 @@ async function isSetup() {
 	}
 }
 
+async function fetchBoards() {
+  try {
+    const response = await getPublicBoards({ page: 1, sort: "DESC" });
+    boards.value = response.data.boards || [];
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function getBoardPosts() {
   state.value = 'LOADING'
 
@@ -125,7 +149,10 @@ async function getBoardPosts() {
   }
 }
 
-onMounted(() => isSetup());
+onMounted(() => {
+  isSetup();
+  fetchBoards();
+});
 
 useHead({
 	title: "feedback | ビルド studio",
@@ -236,4 +263,11 @@ useHead({
       margin-bottom: 0
       padding-bottom: 0
       border-bottom: none
+
+.app-column-empty
+  color: var(--color-text-tertiary)
+  font-size: 12px
+  text-align: center
+  padding: 2rem 1rem
+  font-style: italic
 </style>
