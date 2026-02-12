@@ -2,7 +2,7 @@
   <auth-form>
     <div class="auth-form-header">
       <site-branding :title="siteSettings.title" :logo="siteSettings.logo" />
-      <h3 class="auth-form-heading">Forget password</h3>
+      <h3 class="auth-form-heading">Reset password</h3>
     </div>
     <server-error v-if="serverError" @close="serverError = false" />
     <div v-if="!hideForm" class="card">
@@ -23,9 +23,7 @@
       </div>
     </div>
     <div v-if="requestSuccess" class="card">
-      <p>You will receive a password reset email soon.</p>
-      <br>
-      <p>Follow the link in the email to reset your password.</p>
+      <p>Check your email for a password reset link.</p>
     </div>
     <div v-if="requestError" class="card">
       <p>Something went wrong!</p>
@@ -113,11 +111,11 @@ async function  forgetPassword() {
 }
 
 useHead({
-  title: "Forget password",
+  title: "Reset password",
   meta: [
     {
       name: "og:title",
-      content: () => `Forget password • ${siteSettings.title}`
+      content: () => `Reset password • ${siteSettings.title}`
     }
   ]
 })

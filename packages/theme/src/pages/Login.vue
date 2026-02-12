@@ -39,7 +39,7 @@
     </div>
     <div class="auth-form-other">
       <router-link to="/password-reset">
-        Forget password?
+        Forgot password?
       </router-link>
       <div v-if="siteSettings.allowSignup">
        • Don't have an account yet?
