@@ -40,7 +40,7 @@ const verifyEmail = async (url, tokenPayload) => {
       siteTitle,
     });
 
-    const noReplyEmail = `noreply@${urlObject.host}`;
+    const noReplyEmail = "noreply@birudo.studio";
 
     await mail.sendMail({
       from: noReplyEmail,
