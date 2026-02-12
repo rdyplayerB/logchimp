@@ -37,11 +37,9 @@
             </Button>
           </div>
         </div>
-        <div v-else class="card">
-          <success-icon color="#64B285" />
-          <div>
-            You've successful changed your password. You may close this window.
-          </div>
+        <div v-else class="card success-card">
+          <success-icon color="#64B285" :size="32" />
+          <p class="success-message">Password updated</p>
         </div>
       </div>
     </div>
@@ -203,3 +201,21 @@ useHead({
 	]
 })
 </script>
+
+<style scoped>
+.success-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	padding: 2.5rem 2rem;
+	text-align: center;
+}
+
+.success-message {
+	margin: 0;
+	font-size: 1rem;
+	color: rgba(255, 255, 255, 0.9);
+}
+</style>
