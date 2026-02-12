@@ -2,10 +2,10 @@
   <header class="header">
     <div class="container">
       <div class="header-top">
-        <router-link to="/" class="brand">
+        <a href="https://birudo.studio" class="brand">
           <span class="brand-kanji">ビルド</span>
           <span class="brand-text">studio</span>
-        </router-link>
+        </a>
         <nav class="header-nav">
           <div v-if="userStore.user.userId" class="nav-links">
             <router-link v-if="accessDashboard" to="/dashboard" class="nav-link">

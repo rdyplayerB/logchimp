@@ -1,6 +1,6 @@
 <template>
 	<nav class="navbar">
-		<span class="navbar-subtitle">user feedback</span>
+		<router-link to="/" class="navbar-subtitle">user feedback</router-link>
 	</nav>
 </template>
 
@@ -21,4 +21,9 @@
   font-weight: 400
   letter-spacing: 0.08em
   text-transform: lowercase
+  text-decoration: none
+  transition: opacity 0.2s ease
+
+  &:hover
+    opacity: 0.7
 </style>
