@@ -7,7 +7,7 @@ const error = require("../../errorResponse.json");
 
 module.exports = async (req, res) => {
   const userId = req.user.userId;
-  const name = req.body.name;
+  const { name, notificationPreferences } = req.body;
 
   if (name?.length >= 30) {
     res.status(400).send({
@@ -18,20 +18,39 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const updateData = {
+      updatedAt: new Date().toJSON(),
+    };
+
+    if (name !== undefined) {
+      updateData.name = name;
+    }
+
+    if (notificationPreferences !== undefined) {
+      updateData.notificationPreferences = JSON.stringify(notificationPreferences);
+    }
+
     const users = await database
-      .update({
-        name,
-        updatedAt: new Date().toJSON(),
-      })
+      .update(updateData)
       .from("users")
       .where({
         userId,
       })
-      .returning(["userId", "name", "username", "email"]);
+      .returning(["userId", "name", "username", "email", "notificationPreferences"]);
 
     const user = users[0];
 
-    res.status(200).send({ user });
+    // Parse notification preferences for response
+    const parsedPreferences = user.notificationPreferences
+      ? JSON.parse(user.notificationPreferences)
+      : { emailOnComment: true };
+
+    res.status(200).send({
+      user: {
+        ...user,
+        notificationPreferences: parsedPreferences,
+      },
+    });
   } catch (err) {
     logger.log({
       level: "error",

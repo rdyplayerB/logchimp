@@ -3,6 +3,7 @@ const database = require("../../database");
 
 // services
 const { mail, generateContent } = require("../mail");
+const generateUnsubscribeToken = require("./generateUnsubscribeToken");
 
 // utils
 const logger = require("../../utils/logger");
@@ -15,9 +16,16 @@ const sendNewCommentNotification = async (postId, commentBody, commenterId, site
   }
 
   try {
-    // Get post details including the author
+    // Get post details including the author and their notification preferences
     const post = await database
-      .select("posts.title", "posts.slug", "posts.userId", "users.email", "users.name as authorName")
+      .select(
+        "posts.title",
+        "posts.slug",
+        "posts.userId",
+        "users.email",
+        "users.name as authorName",
+        "users.notificationPreferences"
+      )
       .from("posts")
       .leftJoin("users", "posts.userId", "users.userId")
       .where({ "posts.postId": postId })
@@ -30,6 +38,16 @@ const sendNewCommentNotification = async (postId, commentBody, commenterId, site
 
     // Don't notify if the commenter is the post author
     if (post.userId === commenterId) {
+      return;
+    }
+
+    // Check if user has email notifications enabled
+    const preferences = post.notificationPreferences
+      ? JSON.parse(post.notificationPreferences)
+      : { emailOnComment: true };
+
+    if (!preferences.emailOnComment) {
+      logger.info(`Comment notification skipped for post ${postId}: user opted out`);
       return;
     }
 
@@ -50,6 +68,10 @@ const sendNewCommentNotification = async (postId, commentBody, commenterId, site
     const urlObject = new URL(siteUrl);
     const postLink = `${urlObject.origin}/posts/${post.slug}`;
 
+    // Generate unsubscribe token and link
+    const unsubscribeToken = await generateUnsubscribeToken(post.userId);
+    const unsubscribeLink = `${urlObject.origin}/api/v1/users/unsubscribe?token=${unsubscribeToken}`;
+
     const mailContent = await generateContent("newComment", {
       url: urlObject.origin,
       domain: urlObject.host,
@@ -57,6 +79,7 @@ const sendNewCommentNotification = async (postId, commentBody, commenterId, site
       commenterName,
       commentBody: commentPreview,
       postLink,
+      unsubscribeLink,
     });
 
     const noReplyEmail = "noreply@birudo.studio";

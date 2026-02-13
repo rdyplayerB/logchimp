@@ -51,6 +51,14 @@
         placeholder="Email address"
         :disabled="true"
       />
+
+      <h5 class="form-subheader">Email notifications</h5>
+      <toggle-item
+        v-model="emailOnComment"
+        label="Comments on my posts"
+        note="Receive an email when someone comments on your feedback"
+      />
+
       <div class="settings-actions">
         <Button
           type="primary"
@@ -95,6 +103,7 @@ import Loader from "../components/ui/Loader.vue";
 import ServerError from "../components/serverError.vue";
 import LText from "../components/ui/input/LText.vue";
 import Button from "../components/ui/Button.vue";
+import ToggleItem from "../components/ui/input/ToggleItem.vue";
 import { FormFieldErrorType } from "../components/ui/input/formBaseProps";
 
 const { get: siteSettings } = useSettingStore()
@@ -119,6 +128,7 @@ const serverError = ref<boolean>(false);
 const resendVerificationEmailButtonLoading = ref<boolean>(false);
 const updateUserButtonLoading = ref<boolean>(false);
 const showSaved = ref<boolean>(false);
+const emailOnComment = ref<boolean>(true);
 
 async function getUser() {
 	loading.value = true;
@@ -130,6 +140,7 @@ async function getUser() {
 		user.username = response.data.user.username;
 		user.email = response.data.user.email;
 		isVerified.value = response.data.user.isVerified;
+		emailOnComment.value = response.data.user.notificationPreferences?.emailOnComment ?? true;
 	} catch (error) {
 		tokenError(error);
 	} finally {
@@ -143,9 +154,13 @@ async function updateSettings() {
 	try {
 		const response = await updateUserSettings({
 			name: name.value,
+			notificationPreferences: {
+				emailOnComment: emailOnComment.value,
+			},
 		});
 
 		name.value = response.data.user.name;
+		emailOnComment.value = response.data.user.notificationPreferences?.emailOnComment ?? true;
 		updateUserButtonLoading.value = false;
 
 		// Show success message
@@ -217,7 +232,16 @@ useHead({
 </style>
 
 <style lang='scss' scoped>
+.form-subheader {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
 .settings-actions {
+  margin-top: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;

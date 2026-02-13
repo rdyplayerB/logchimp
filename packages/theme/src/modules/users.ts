@@ -6,8 +6,13 @@ import { useUserStore } from "../store/user";
 
 import { ApiPaginationType } from "../types";
 
+interface NotificationPreferences {
+  emailOnComment: boolean;
+}
+
 interface UpdateUserSettingsArgs {
   name?: string;
+  notificationPreferences?: NotificationPreferences;
 }
 
 export interface UserType {
@@ -50,7 +55,10 @@ export const getUserSettings = async () => {
  *
  * @returns {object} response
  */
-export const updateUserSettings = async ({ name }: UpdateUserSettingsArgs) => {
+export const updateUserSettings = async ({
+  name,
+  notificationPreferences,
+}: UpdateUserSettingsArgs) => {
   const { authToken } = useUserStore();
 
   return await axios({
@@ -58,6 +66,7 @@ export const updateUserSettings = async ({ name }: UpdateUserSettingsArgs) => {
     url: "/api/v1/users/profile",
     data: {
       name,
+      notificationPreferences,
     },
     headers: {
       Authorization: `Bearer ${authToken}`,

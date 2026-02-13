@@ -10,15 +10,23 @@ module.exports = async (req, res) => {
 
   try {
     const user = await database
-      .select("userId", "name", "username", "email", "isVerified")
+      .select("userId", "name", "username", "email", "isVerified", "notificationPreferences")
       .from("users")
       .where({
         userId,
       })
       .first();
 
+    // Parse notification preferences with defaults
+    const notificationPreferences = user.notificationPreferences
+      ? JSON.parse(user.notificationPreferences)
+      : { emailOnComment: true };
+
     res.status(200).send({
-      user,
+      user: {
+        ...user,
+        notificationPreferences,
+      },
     });
   } catch (err) {
     logger.error({

@@ -5,6 +5,7 @@ const accessDashboard = require("./accessDashboard");
 const getUserPermissions = require("./getUserPermissions");
 const getUserInfo = require("./getUserInfo");
 const updateUserInfo = require("./updateUserInfo");
+const unsubscribe = require("./unsubscribe");
 
 module.exports = {
   ...filter,
@@ -14,4 +15,5 @@ module.exports = {
   getUserPermissions,
   getUserInfo,
   updateUserInfo,
+  unsubscribe,
 };
