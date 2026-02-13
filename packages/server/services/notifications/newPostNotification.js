@@ -36,7 +36,7 @@ const sendNewPostNotification = async (post, siteUrl) => {
       : "No description provided.";
 
     const urlObject = new URL(siteUrl);
-    const postLink = `${urlObject.origin}/${board?.url || "posts"}/${post.slug}`;
+    const postLink = `${urlObject.origin}/posts/${post.slug}`;
 
     const mailContent = await generateContent("newPost", {
       url: urlObject.origin,
