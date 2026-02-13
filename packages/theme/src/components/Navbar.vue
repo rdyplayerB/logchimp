@@ -1,6 +1,6 @@
 <template>
 	<nav class="navbar">
-		<router-link to="/" class="navbar-subtitle">← user feedback</router-link>
+		<router-link to="/" class="navbar-subtitle">← all apps feedback</router-link>
 	</nav>
 </template>
 
