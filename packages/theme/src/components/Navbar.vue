@@ -22,8 +22,9 @@
   letter-spacing: 0.08em
   text-transform: lowercase
   text-decoration: none
-  transition: opacity 0.2s ease
+  transition: color 0.2s ease
 
   &:hover
-    opacity: 0.7
+    color: var(--color-text-primary)
+    text-decoration: underline
 </style>
