@@ -2,6 +2,9 @@ const { v4: uuid } = require("uuid");
 
 const database = require("../../../database");
 
+// services
+const { sendNewCommentNotification } = require("../../../services/notifications");
+
 // utils
 const logger = require("../../../utils/logger");
 const error = require("../../../errorResponse.json");
@@ -77,6 +80,12 @@ module.exports = async (req, res) => {
         comment,
         author,
       };
+    });
+
+    // Send notification to post author (fire-and-forget)
+    const siteUrl = `${req.protocol}://${req.get("host")}`;
+    sendNewCommentNotification(post_id, body, userId, siteUrl).catch((err) => {
+      logger.error(`Comment notification error: ${err.message}`);
     });
 
     res.status(201).send({
