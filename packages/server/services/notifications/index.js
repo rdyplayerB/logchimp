@@ -1,0 +1,1 @@
+exports.sendNewPostNotification = require("./newPostNotification");

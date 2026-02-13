@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require("uuid");
 
 const database = require("../../database");
 
+// services
+const { sendNewPostNotification } = require("../../services/notifications");
+
 // utils
 const { validUUID } = require("../../helpers");
 const logger = require("../../utils/logger");
@@ -78,6 +81,12 @@ exports.create = async (req, res) => {
         postId: post.postId,
       })
       .into("votes");
+
+    // Send notification (fire-and-forget)
+    const siteUrl = `${req.protocol}://${req.get("host")}`;
+    sendNewPostNotification(post, siteUrl).catch((err) => {
+      logger.error(`Notification error: ${err.message}`);
+    });
 
     res.status(201).send({
       post,
