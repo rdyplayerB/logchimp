@@ -1,7 +1,7 @@
 <template>
 	<nav class="navbar">
 		<router-link to="/" class="navbar-subtitle">
-			<span v-if="!isHomepage">← </span>apps feedback
+			<span v-if="!isHomepage">← </span>all apps
 		</router-link>
 	</nav>
 </template>
