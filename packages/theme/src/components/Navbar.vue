@@ -1,10 +1,17 @@
 <template>
 	<nav class="navbar">
-		<router-link to="/" class="navbar-subtitle">← all apps feedback</router-link>
+		<router-link to="/" class="navbar-subtitle">
+			<span v-if="!isHomepage">← </span>apps feedback
+		</router-link>
 	</nav>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const isHomepage = computed(() => route.path === "/");
 </script>
 
 <style lang='sass'>
